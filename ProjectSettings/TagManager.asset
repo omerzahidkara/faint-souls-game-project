@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - DoorBlock
+  - SisterNPC
+  - LowZombie
+  - CanvasPlayer
+  - MediumZombie
+  - HighZombie
+  - EvilSpirit
+  - Demon
+  - SoundFX
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Enemies
+  - SolidObjects
+  - FrontObjects
+  - SpiritZone
+  - Interactable
+  - Doors
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1435393189
+    locked: 0
+  - name: Underthings
+    uniqueID: 616124143
+    locked: 0
+  - name: Player
+    uniqueID: 2584934263
+    locked: 0
+  - name: Foreground
+    uniqueID: 1667438857
+    locked: 0
+  - name: Midthings
+    uniqueID: 2778209911
+    locked: 0

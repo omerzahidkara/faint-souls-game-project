@@ -1,0 +1,155 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\unity_repos\\Test_Project_1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\scripts\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|d:\\unity_repos\\test_project_1\\assets\\scripts\\soundfxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\soundfxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|d:\\unity_repos\\test_project_1\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\scripts\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\scripts\\warrior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\warrior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\scripts\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\scripts\\healthbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\healthbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|D:\\unity_repos\\Test_Project_1\\assets\\menu\\scripts\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2CD3693-A370-8CD4-DB4F-1ECD7DA34B0F}|Assembly-CSharp.csproj|solutionrelative:assets\\menu\\scripts\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SoundFXManager.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\SoundFXManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SoundFXManager.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\SoundFXManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SoundFXManager.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T16:28:41.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Menu\\Scripts\\Menu.cs",
+              "RelativeDocumentMoniker": "Assets\\Menu\\Scripts\\Menu.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Menu\\Scripts\\Menu.cs",
+              "RelativeToolTip": "Assets\\Menu\\Scripts\\Menu.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowAcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T12:19:18.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PauseMenu.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\PauseMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PauseMenu.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\PauseMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PauseMenu.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T01:32:30.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HealthBar.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\HealthBar.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HealthBar.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\HealthBar.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HealthBar.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T23:25:44.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GameController.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\GameController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameController.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\GameController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameController.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAcwH4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T18:00:04.923Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnemyController.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\EnemyController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyController.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\EnemyController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\EnemyController.cs",
+              "ViewState": "AgIAAAIBAAAAAAAAAAAiwA8BAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T12:55:38.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAIwDwBAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-06T10:34:47.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Warrior.cs",
+              "DocumentMoniker": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\Warrior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Warrior.cs",
+              "ToolTip": "D:\\unity_repos\\Test_Project_1\\Assets\\Scripts\\Warrior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Warrior.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T18:18:50.961Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
