@@ -1,9 +1,37 @@
-/Library/
-/Temp/
-/Logs/
-/Obj/
-/Build/
-/Builds/
-/UserSettings/
-/MemoryCaptures/
-/Packages/
+# =============== #
+# Unity generated #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+*.pidb
+*.booproj
+*.svd
+*.user
+*.userprefs
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vs/
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db

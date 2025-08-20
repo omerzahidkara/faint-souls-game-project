@@ -19,6 +19,18 @@ public class Menu : MonoBehaviour
     }
     private void Start()
     {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentSceneIndex != 0) // Ana menü deðilse fareyi gizle
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
         soundMixer.SetMasterVolume(masterSlider.value);
         soundMixer.SetMusicVolume(musicSlider.value);
         soundMixer.SetSFXVolume(sfxSlider.value);

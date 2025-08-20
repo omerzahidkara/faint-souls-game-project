@@ -9,12 +9,14 @@ using UnityEngine.Tilemaps;
 using TMPro;
 
 using UnityEngine.UI;
+using UnityEngine.TextCore.Text;
 
 // Oyuncunun kontrolünü saðlayan sýnýf
 public class PlayerController : MonoBehaviour, Warrior
 {
     [SerializeField] public AudioClip step1;
     [SerializeField] public AudioClip hit;
+    [SerializeField] public AudioClip playerDamaged;
     public TextMeshProUGUI levelIndicator; 
     public float moveSpeed; // Oyuncunun hareket hýzý
     public float stepSize;   // Oyuncunun her adýmda hareket edeceði mesafe
@@ -24,12 +26,14 @@ public class PlayerController : MonoBehaviour, Warrior
     private Animator animator;       // Oyuncu animasyonlarýný yönetmek için
     private int damage;               // Oyuncunun saldýrý gücü
     public int experience;             //tecrübe puaný
-
+    private bool dashDamage;
     public int spiritNum;            // Oyuncunun can deðeri,
     public int maxHealth;      // Max can deðeri
     public bool isGatheredAnySouls; //Soul ile etkileþime girildi mi kontrolü
 
     public GameObject spiritPrefab;  // Ruhçuk prefab
+    public GameObject heartEffectPrefab;//Can gitme efekti
+    public GameObject zzzEffectPrefab; // CoolDown Efekti
     public int spiritNumOnTheScene;  // Sahnede oluþacak ruh sayýsýný limitlendirmemiz gerekir
     private List<Vector3> spiritSpawnedPositions = new List<Vector3>();
 
@@ -49,10 +53,12 @@ public class PlayerController : MonoBehaviour, Warrior
 
     private bool canAttack; // Saldýrý yapýlýp yapýlamayacaðýný kontrol eden deðiþken
     private bool attackAnim;
+    private bool dashAnim;
+    private bool canDash;
     private float attackCooldown; // Saldýrý bekleme süresi
-
+    private float attackCooldownDash; // Saldýrý bekleme süresi
     public bool isDead;
-
+    public int instantScore;
     public event Action LevelUp; // Seviye alýndýðýnda tetiklenecek olay
 
 
@@ -65,13 +71,13 @@ public class PlayerController : MonoBehaviour, Warrior
 
     public static PlayerController Instance { get; private set; } // Singleton eriþimi
 
-    private Dictionary<int, (int damage, int maxHealth, int expBorder, float attackCoolDown)> levelData = new()// levela göre oyun özelliklerini saklarýz
+    private Dictionary<int, (int damage, int maxHealth, int expBorder, float attackCoolDown)> levelData = new()// levela göre oyuncu özelliklerini saklarýz
     {
-        {2, (7, 110, 30, 0.4f)},    // MediumZombie
-        {3, (8, 120, 70, 0.2f)},    // HighZombie 
-        {4, (10, 150, 100, 0.2f)},    // EvilSpirit 
-        {5, (24, 200, 766, 0.1f)},  // Demon 
-        {6, (26, 200, 1532, 0.0f)},  // Sonsuz seviyeye geçiþ sýnýrý
+        {2, (5, 110, 30, 0.4f)},    // MediumZombie level
+        {3, (10, 120, 70, 0.2f)},    // HighZombie level
+        {4, (20, 150, 100, 0.2f)},    // EvilSpirit level
+        {5, (25, 200, 766, 0.1f)},  // Demon level
+        {6, (30, 200, 1532, 0.0f)},  // Sonsuz seviyeye geçiþ sýnýrý
     };
 
     private void Start()
@@ -80,9 +86,12 @@ public class PlayerController : MonoBehaviour, Warrior
         GetSpiritZonePositions();//can çýkacak alanlarýn kaydedilmesi
         spiritNumOnTheScene = 1;
         attackCooldown = 0.5f;
+        attackCooldownDash = 10f;
         canAttack = true;
         attackAnim = false;
-        moveSpeed = 2.5f; // Oyuncunun hareket hýzý
+        canDash = true;
+        dashAnim = false;
+        moveSpeed = 4f; // Oyuncunun hareket hýzý
         stepSize = 0.05f;
         isMoving = false;
         experience = 0;
@@ -95,6 +104,8 @@ public class PlayerController : MonoBehaviour, Warrior
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(15);
         continousLevelBorder = 10;
+        dashDamage = false;
+        instantScore = 3;
 
         if (levelIndicator != null)
         {
@@ -114,11 +125,6 @@ public class PlayerController : MonoBehaviour, Warrior
         if (spiritNum <= 0)
         {
             Die();
-            Time.timeScale = 0f;
-            DeadPanel.SetActive(true);
-
-            DeadPanelScore.text = "Score: " + (level * experience).ToString();
-
             return;
         }
 
@@ -138,11 +144,8 @@ public class PlayerController : MonoBehaviour, Warrior
 
             if (input != Vector2.zero)
             {
-                if (Input.GetKey(KeyCode.Space))//(space öncelikli!)
-                {
-                    // Eðer Space tuþu basýlýysa yön bilgisi güncellenmeyecek
-                }
-                else if(isAttacking)
+
+                if(isAttacking || dashAnim)
                 {
                     //Eðer baþarýlý saldýrý yapýlýyorsa düþmana dönük kalmaya zorlanýlýr
                     // Animatöre yön bilgisini gönder - saldýrý halinde düþmana dönük yürünerek sinematik bir his verilmesi amaçlandý
@@ -173,9 +176,15 @@ public class PlayerController : MonoBehaviour, Warrior
         }
 
         // Eðer oyuncu "E" tuþuna bastýysa ve saldýrý zaten yapýlmýyorsa saldýrý hamlesi yap
-        if (Input.GetKeyDown(KeyCode.E) && !attackAnim)
-        {
+        if (Input.GetKeyDown(KeyCode.E) && !attackAnim && !dashAnim)
+        {           
             StartCoroutine(Attack(attackCooldown));
+        }
+
+        // Eðer oyuncu "Space" tuþuna bastýysa ve saldýrý zaten yapýlmýyorsa sýçarama ve saldýrma hamlesi yap
+        if (Input.GetKeyDown(KeyCode.Space) && !attackAnim && !dashAnim && !isMoving)
+        {           
+            StartCoroutine(DashAttack(attackCooldownDash));
         }
 
         if (experience >= continousLevelBorder)
@@ -185,8 +194,122 @@ public class PlayerController : MonoBehaviour, Warrior
 
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("attackAnim", attackAnim);
+        animator.SetBool("isDash", dashAnim);
         UpdateHealthBar();
         UpdateExpBar();
+    }
+    public void Attack(int damage, Collider2D collider)
+    {
+        if (collider.tag == "Demon")
+        {
+            SoundFXManager.instance.PlaySoundFXClip(demonSlayedSound, transform, 1f);
+        }
+        else
+        {
+            // Eðer düþman varsa düþmanýn hasar görme fonksiyonunu aktif et
+            SoundFXManager.instance.PlaySoundFXClip(hit, transform, 1f);
+        }
+
+        collider.GetComponent<Warrior>()?.TakeDamage(damage);
+
+    }
+    private IEnumerator Attack(float attackCD)
+    {
+        if (!canAttack) yield break; // Eðer saldýrý yapýlamýyorsa çýk
+
+        canAttack = false; // Saldýrý yapýldý, tekrar saldýrýyý engelle
+        attackAnim = true;
+        // Oyuncunun baktýðý yönü hesapla
+        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var interactPos = transform.position + (facingDir * 0.03f);
+        var collider = Physics2D.OverlapCircle(interactPos, 0.15f, enemyLayer);
+
+        yield return new WaitForSeconds(0.20f); // Animasyon süresi
+
+        // Eðer bir collider bulunmuþsa
+        if (collider != null)
+        {
+            isAttacking = true;
+            // Eðer trigger bir collider ise, oyuncu yönünü ona döndürsün
+            StartCoroutine(LookAtTheEnemyYouHit(collider));
+            if (dashDamage)
+            {
+                Attack(300, collider);
+            }
+            else
+            {
+                Attack(damage, collider);
+            }
+
+        }
+        dashDamage = false;
+        attackAnim = false;// cooldowndan önce animasyon bitirilir, vuurþ animasyonu süresi kadar animasyon oynatýlýr
+        yield return new WaitForSeconds(attackCD); // Cooldown süresi
+        canAttack = true; // Yeniden saldýrý yapýlabilir
+    }
+    private IEnumerator DashAttack(float dashCD)
+    {
+        if (!canAttack) yield break; // Eðer saldýrý yapýlamýyorsa çýk
+
+        if (!canDash) 
+        {
+            Instantiate(zzzEffectPrefab, transform.position + new Vector3(0.2f, 1f, 0f), Quaternion.identity);
+            yield break; 
+        } // Eðer saldýrý yapýlamýyorsa çýk
+
+        canDash = false;
+        canAttack = false; // Saldýrý yapýldý, tekrar saldýrýyý engelle
+        dashAnim = true;
+        animator.SetBool("isDash", dashAnim);
+        dashDamage = true;
+        // Oyuncunun baktýðý yönü hesapla
+        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+
+        float dashDistance = 3f;
+        Vector2 direction = facingDir.normalized; // Karakterin baktýðý yön
+        Vector2 origin = transform.position;
+
+        // ANÝMATÖR GÜNCELLEMESÝ
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
+        isMoving = true;
+        animator.SetBool("isMoving", isMoving);
+
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, dashDistance, solidObjectsLayer | interactableLayer | doorsLayer);
+
+        Vector2 targetPos;
+
+        if (hit.collider != null)
+        {
+            // Engel varsa, biraz önünde dur
+            targetPos = hit.point - direction * 0.4f; // Duvara yapýþmasýn
+        }
+        else
+        {
+            // Engel yoksa maksimum mesafeye kadar dash at
+            targetPos = origin + direction * dashDistance;
+        }
+
+        // Oyuncu hedef konuma ulaþana kadar hareket eder
+        while ((targetPos - (Vector2)transform.position).sqrMagnitude > Mathf.Epsilon)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 10f * Time.deltaTime);
+            yield return null;
+        }
+
+        // Nihai konumu düzelt ve hareketi durdur
+        transform.position = targetPos;
+        dashAnim = false;
+        yield return new WaitForSeconds(0.01f); // izin süresi
+        isMoving = false;
+        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isDash", dashAnim);
+        canAttack = true;
+        StartCoroutine(Attack(attackCooldown));
+
+        yield return new WaitForSeconds(dashCD); // Cooldown süresi
+        canDash = true;
     }
     private IEnumerator WalkSound()
     {
@@ -266,6 +389,8 @@ public class PlayerController : MonoBehaviour, Warrior
     }
     public void TakeDamage(int damage)
     {
+        Instantiate(heartEffectPrefab,transform.position + new Vector3(-0.2f, 1f, 0f), Quaternion.identity);
+        SoundFXManager.instance.PlaySoundFXClip(playerDamaged, transform, 1.5f);
         spiritNum -= damage;
         spiritNum = Mathf.Clamp(spiritNum, 0, maxHealth);// 0-100 limit
         healthBar.SetHealth(spiritNum);
@@ -273,12 +398,14 @@ public class PlayerController : MonoBehaviour, Warrior
 
     public void Die()
     {
-        /*
-        if (isDead) return; // Eðer zaten öldüyse fonksiyondan çýk
-
-        isMoving = true; // hareket engellendi
-        isDead = true;
-        animator.SetBool("isDead", isDead);*/
+        Time.timeScale = 0f;
+        DeadPanel.SetActive(true);
+        double pieceScoreDouble = level / 7;
+        if(pieceScoreDouble <= 0 ) pieceScoreDouble = 1;
+        int pieceScore = (int)pieceScoreDouble;
+        int theScore =  (pieceScore * experience) + 3;
+        instantScore = theScore;
+        DeadPanelScore.text = "Score: " + theScore.ToString();
     }
     private IEnumerator LookAtTheEnemyYouHit(Collider2D collider)
     {       
@@ -292,47 +419,6 @@ public class PlayerController : MonoBehaviour, Warrior
         isAttacking = false;
         yield break;
     }
-    public void Attack(int damage, Collider2D collider)
-    {
-        if (collider.tag == "Demon")
-        {
-            SoundFXManager.instance.PlaySoundFXClip(demonSlayedSound, transform, 1f);
-        }
-        else 
-        {
-            // Eðer düþman varsa düþmanýn hasar görme fonksiyonunu aktif et
-            SoundFXManager.instance.PlaySoundFXClip(hit, transform, 1f);
-        }
-
-        collider.GetComponent<Warrior>()?.TakeDamage(damage);
-
-    }
-    private IEnumerator Attack(float attackCD)
-    {
-        if (!canAttack) yield break; // Eðer saldýrý yapýlamýyorsa çýk
-
-        canAttack = false; // Saldýrý yapýldý, tekrar saldýrýyý engelle
-        attackAnim = true;
-        // Oyuncunun baktýðý yönü hesapla
-        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
-        var interactPos = transform.position + (facingDir * 0.03f);
-        var collider = Physics2D.OverlapCircle(interactPos, 0.15f, enemyLayer);
-
-        yield return new WaitForSeconds(0.20f); // Animasyon süresi
-
-        // Eðer bir collider bulunmuþsa
-        if (collider != null)
-        {
-            isAttacking = true;          
-            // Eðer trigger bir collider ise, oyuncu yönünü ona döndürsün
-            StartCoroutine(LookAtTheEnemyYouHit(collider));
-            Attack(damage, collider);           
-        }
-        attackAnim = false;// cooldowndan önce animasyon bitirilir, vuurþ animasyonu süresi kadar animasyon oynatýlýr
-        yield return new WaitForSeconds(attackCD); // Cooldown süresi
-        canAttack = true; // Yeniden saldýrý yapýlabilir
-    }
-
 
     // Oyuncunun yöneldiði yerde bir etkileþim olup olmadýðýný kontrol eder
     void Interact()

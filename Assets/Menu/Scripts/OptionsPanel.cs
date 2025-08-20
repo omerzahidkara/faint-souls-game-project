@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsPanel : MonoBehaviour
@@ -31,4 +32,25 @@ public class OptionsPanel : MonoBehaviour
             soundMixer.SetSFXVolume(sfxSlider.value);
         }
     }
+    void OnEnable()
+    {
+        Cursor.visible = true; Cursor.lockState = CursorLockMode.None;
+        GameController.IsInputBlocked = true;
+        Time.timeScale = 0f;
+    }
+
+    void OnDisable()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentSceneIndex != 0) // Ana menü deðilse fareyi gizle
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        GameController.IsInputBlocked = false;
+        Time.timeScale = 1f;
+    }
+
 }

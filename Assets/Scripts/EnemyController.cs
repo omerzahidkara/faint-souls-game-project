@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour, Warrior
         EvilSpirit,
         Demon   
     }
+    public GameController controller;
 
     private EnemyType enemyType;
 
@@ -74,38 +75,39 @@ public class EnemyController : MonoBehaviour, Warrior
         {
             case "LowZombie":
                 enemyType = EnemyType.LowZombie;          
-                maxHealth = 12;
-                attackCooldown = 1f;
-                damage = 2;
+                maxHealth = 15;
+                attackCooldown = 2.5f;
+                damage = 5;
                 expValue = 1;
                 break;
             case "MediumZombie":
                 enemyType = EnemyType.MediumZombie;
-                maxHealth = 21;
-                attackCooldown = 0.9f;
-                damage = 2;
+                maxHealth = 25;
+                attackCooldown = 2.5f;
+                damage = 5;
                 expValue = 3;
                 break;
             case "HighZombie":
                 enemyType = EnemyType.HighZombie;
-                maxHealth = 24;
-                attackCooldown = 0.9f;
-                damage = 4;
+                maxHealth = 50;
+                attackCooldown = 2f;
+                damage = 10;
                 expValue = 5;
                 break;
             case "EvilSpirit":
                 enemyType = EnemyType.EvilSpirit;
-                maxHealth = 46;
-                attackCooldown = 0.7f;
-                damage = 6;
+                maxHealth = 90;
+                attackCooldown = 1.5f;
+                damage = 10;
                 expValue = 10;
                 break;
             case "Demon":
                 enemyType = EnemyType.Demon;
                 maxHealth = 300;
-                attackCooldown = 1.1f;
-                damage = 50;
+                attackCooldown = 3f;
+                damage = 100;
                 expValue = 666;
+                controller.demonCount++;
                 break;
             default:
                 break;
@@ -122,6 +124,7 @@ public class EnemyController : MonoBehaviour, Warrior
 
     private void Start()
     {
+        controller = GameController.Instance;
         canAttack = true;
         WhichEnemy();
         healthBar.SetMaxHealth(maxHealth);
@@ -147,6 +150,10 @@ public class EnemyController : MonoBehaviour, Warrior
 
     private void OnDestroy()// Destroy zamaný çaðrýlýr
     {
+        if(gameObject.tag == "Demon")
+        {
+            controller.demonCount--;
+        }
         GiveExp();
     }
 
@@ -199,16 +206,16 @@ public class EnemyController : MonoBehaviour, Warrior
 
     private IEnumerator EvilSpiritHitEffect()
     {
-        PlayerController.Instance.moveSpeed = 1.3f;
-        yield return new WaitForSeconds(2f);
-        PlayerController.Instance.moveSpeed = 2.5f;
+        PlayerController.Instance.moveSpeed = 1.0f;
+        yield return new WaitForSeconds(5.5f);
+        PlayerController.Instance.moveSpeed = 4f;
         yield break;
     }
     private IEnumerator EvilSpiritDeadBuff()
     {
-        float duration = 3f; // 3 saniye sürecek
-        float startSpeed = 3.5f;
-        float targetSpeed = 2.5f;
+        float duration = 5f; // 4 saniye sürecek
+        float startSpeed = 10f;
+        float targetSpeed = 4f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -269,9 +276,23 @@ public class EnemyController : MonoBehaviour, Warrior
 
     private void GiveExp()
     {
-        PlayerController.Instance.experience += expValue;
+        if(PlayerController.Instance.level <=6)
+        {
+            PlayerController.Instance.experience += expValue;
+        }
+        else
+        {
+            PlayerController.Instance.experience += HealthExpMultiplier();
+        }
     }
-
+    private int HealthExpMultiplier()
+    {
+        float pieceEarning = (float)PlayerController.Instance.spiritNum / 100f;
+        float netEarningDb = (pieceEarning) * (float)expValue;
+        int netEarning = (int)netEarningDb;
+        Debug.Log("exp: "+netEarning);
+        return netEarning;
+    }
     public void Die()
     {
         animator.SetTrigger("isDead");

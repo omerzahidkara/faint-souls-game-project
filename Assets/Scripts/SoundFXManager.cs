@@ -21,31 +21,28 @@ public class SoundFXManager : MonoBehaviour
             Destroy(gameObject); // Eðer zaten varsa, yeni oluþaný yok et
         }
     }
-
+    public void KillYourself()
+    {
+        Destroy(gameObject); // Restart ederken kullanmak için
+    }
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        // spawn in gameobject
+        if (audioClip == null || soundFXObject == null) return;
+
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        if (audioClip != null)
+        audioSource.clip = audioClip;
+        audioSource.volume = volume;
+        audioSource.Play();
+
+        float clipLengthSafe = audioClip.length;
+        if (clipLengthSafe <= 0f)
         {
-            //assign the audioClip
-            audioSource.clip = audioClip;
-
-            //assign volume
-            audioSource.volume = volume;
-
-            //play
-            if (!audioSource.isPlaying && audioSource != null)
-            {
-                audioSource.Play();
-            }
-            //get lenght of sound FX clip
-            clipLength = audioSource.clip.length;
+            clipLengthSafe = 1f; // Ses uzunluðu alýnamazsa 1 saniye varsay
         }
 
-        //die
-        Destroy(audioSource.gameObject,clipLength);
-
+        AutoDestroyUnscaled destroyer = audioSource.gameObject.AddComponent<AutoDestroyUnscaled>();
+        destroyer.SetLifetime(clipLengthSafe);
     }
+
 }

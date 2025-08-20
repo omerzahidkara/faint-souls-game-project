@@ -1,0 +1,305 @@
+fileFormatVersion: 2
+guid: 369f3eb7a77ed0c49b41e73cc74a91f4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "y\xF6n tu\u015Flar\u0131_0"
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 520
+        width: 277
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 92, y: 110}
+        - {x: -94, y: 110}
+        - {x: -95, y: 87}
+        - {x: -124, y: 87}
+        - {x: -124, y: 65}
+        - {x: -138, y: 65}
+        - {x: -138, y: -92}
+        - {x: -125, y: -91}
+        - {x: -124, y: -110}
+        - {x: 122, y: -110}
+        - {x: 122, y: -96}
+        - {x: 137, y: -96}
+        - {x: 137, y: 65}
+        - {x: 117, y: 65}
+        - {x: 117, y: 86}
+        - {x: 92, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b89510875e857744a64b3b57725d8fd
+      internalID: -924132875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "y\xF6n tu\u015Flar\u0131_1"
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 521
+        width: 276
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 92, y: 110}
+        - {x: -94, y: 110}
+        - {x: -95, y: 87}
+        - {x: -124, y: 87}
+        - {x: -124, y: 65}
+        - {x: -138, y: 65}
+        - {x: -138, y: -92}
+        - {x: -125, y: -91}
+        - {x: -124, y: -110}
+        - {x: 122, y: -110}
+        - {x: 122, y: -96}
+        - {x: 137, y: -96}
+        - {x: 137, y: 65}
+        - {x: 117, y: 65}
+        - {x: 117, y: 86}
+        - {x: 92, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9557edfaefbe14a40b17e27be7aba0d9
+      internalID: -1065874499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "y\xF6n tu\u015Flar\u0131_2"
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 275
+        width: 276
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 92, y: 110}
+        - {x: -94, y: 110}
+        - {x: -95, y: 87}
+        - {x: -124, y: 87}
+        - {x: -124, y: 65}
+        - {x: -138, y: 65}
+        - {x: -138, y: -92}
+        - {x: -125, y: -91}
+        - {x: -124, y: -110}
+        - {x: 122, y: -110}
+        - {x: 122, y: -96}
+        - {x: 137, y: -96}
+        - {x: 137, y: 65}
+        - {x: 117, y: 65}
+        - {x: 117, y: 86}
+        - {x: 92, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bd1ec30790f60e44807f17869760987
+      internalID: 65845729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "y\xF6n tu\u015Flar\u0131_3"
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 26
+        width: 277
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 92, y: 110}
+        - {x: -94, y: 110}
+        - {x: -95, y: 87}
+        - {x: -124, y: 87}
+        - {x: -124, y: 65}
+        - {x: -138, y: 65}
+        - {x: -138, y: -92}
+        - {x: -125, y: -91}
+        - {x: -124, y: -110}
+        - {x: 122, y: -110}
+        - {x: 122, y: -96}
+        - {x: 137, y: -96}
+        - {x: 137, y: 65}
+        - {x: 117, y: 65}
+        - {x: 117, y: 86}
+        - {x: 92, y: 86}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 823e3711735799d49b517d1cde3b619e
+      internalID: 1873653871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      "y\xF6n tu\u015Flar\u0131_0": -924132875
+      "y\xF6n tu\u015Flar\u0131_1": -1065874499
+      "y\xF6n tu\u015Flar\u0131_2": 65845729
+      "y\xF6n tu\u015Flar\u0131_3": 1873653871
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

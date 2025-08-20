@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,16 @@ public class PauseMenu : MonoBehaviour
     }
     public void Restart()
     {
-        pauseMenu.SetActive(false);
+        StartCoroutine(RestartRoutine());
+    }
+
+    IEnumerator RestartRoutine()
+    {
+        yield return new WaitForEndOfFrame();
+        if (SoundFXManager.instance != null)
+        {
+            SoundFXManager.instance.KillYourself();
+        }
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

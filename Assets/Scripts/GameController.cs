@@ -17,13 +17,16 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject optionsPanel;
     [SerializeField] GameObject deadPanel;
     [SerializeField] public AudioClip enemyWaveLaunched;
-    [SerializeField] GameObject infoPanel;
+    [SerializeField] GameObject infoPanel; 
+    [SerializeField] GameObject TipsPanel;
+    public static bool IsInputBlocked = false;
     // düþman ai referanslarý
     public GameObject lowZombie;  // LowZombie prefab referansý
     public GameObject mediumZombie;  // mediumZombie prefab referansý
     public GameObject highZombie;  // highZombie prefab referansý
     public GameObject evilSpirit;  // evilSpirit prefab referansý
     public GameObject demon;  // demon prefab referansý
+    public int demonCount; //sahnedeki aktif demon sayýsý
 
     [SerializeField] NPCController npcController; // Diyalog bitince deðiþime uðrayacak sisterNPC referansý
     [SerializeField] public Sprite deadSprite; // Ölü NPC için kullanýlacak sprite
@@ -33,9 +36,19 @@ public class GameController : MonoBehaviour
 
     public GameObject pos1, pos2, pos3, pos4; // pozisyon referanslarý
     Vector3 spawnPosition1, spawnPosition2, spawnPosition3, spawnPosition4; // kapý pozisyonlarýndan düþmanlar gelecek
+    public static GameController Instance { get; private set; } // Singleton eriþimi
+    private Coroutine infiniteSpawnCoroutine = null;
+    private void Awake()
+    {
+        Instance = this; // Tek bir Controller olmasýný saðlýyoruz
+    }
+
     public void Start()
     {
+        demonCount = 0;
+
         QualitySettings.vSyncCount = 0; // VSync'i tamamen kapatýr
+        Application.targetFrameRate = 120;
 
         Cursor.visible = false; Cursor.lockState = CursorLockMode.Locked;// Fare gizlenir
         levelState = true;
@@ -66,24 +79,29 @@ public class GameController : MonoBehaviour
         {
             levelState = true;
         };
-
+        Time.timeScale = 0f;
+        TipsPanel.SetActive(true);
     }
     public void Update()
     {
-        if(PlayerController.Instance.AnySoulsGathered())
+        if (PlayerController.Instance.AnySoulsGathered())
         {
             if(!musicPrapareBattle.isPlaying)
             {
                 musicPrapareBattle.Play();
             }
-        }
+        }/*
         //menüler açýksa fare devrede
-        if (pauseMenu.activeSelf || optionsPanel.activeSelf || infoPanel.activeSelf || deadPanel.activeSelf)
+        if (pauseMenu.activeSelf || optionsPanel.activeSelf || infoPanel.activeSelf || deadPanel.activeSelf ||TipsPanel.activeSelf)
         {
             Cursor.visible = true; Cursor.lockState = CursorLockMode.None;
         }
+        else
+        {
+            Cursor.visible = false; Cursor.lockState = CursorLockMode.Locked;// Fare kapanýr
+        }*/
         //options ve info kapalýysa 
-        if(!optionsPanel.activeSelf && !infoPanel.activeSelf && !deadPanel.activeSelf)
+        if(!IsInputBlocked)
         {
             if (Input.GetKeyDown(KeyCode.Escape))//pause menu açma kapama koþullarý
             {
@@ -139,7 +157,6 @@ public class GameController : MonoBehaviour
     {
         levelState = false;// level atlayana kadar kendini tekrar çaðýrmamalý
 
-
         int level = PlayerController.Instance.level;
         if (level < 0)
         {
@@ -171,22 +188,46 @@ public class GameController : MonoBehaviour
             SoundFXManager.instance.PlaySoundFXClip(enemyWaveLaunched, transform, 1f);
         }
         else
-        {        
-            StartCoroutine(InfiniteEnemySpawn());
+        {
+            if (infiniteSpawnCoroutine == null) // Eðer daha önce baþlatýlmadýysa
+            {
+                infiniteSpawnCoroutine = StartCoroutine(InfiniteEnemySpawn());
+            }
         }
     }
 
     private IEnumerator InfiniteEnemySpawn()
     {
-        int demonMultiplier = (PlayerController.Instance.continousLevelBorder / 1500) + 1;
+        int demonMultiplier = (PlayerController.Instance.continousLevelBorder / 8000) + 2;
         //continousLevelBorder = (continousLevelBorder / 100) * 10 + 666 + experience; 
         while (PlayerController.Instance.experience < PlayerController.Instance.continousLevelBorder)
-        {        
-
-            for(int i = 0; i < (PlayerController.Instance.continousLevelBorder / 1200)+3; i++) 
+        {
+            SoundFXManager.instance.PlaySoundFXClip(enemyWaveLaunched, transform, 1.2f);
+            for (int i = 0; i < (PlayerController.Instance.continousLevelBorder/250)+5; i++) 
             {
                 SpawnPosRandomizer();
                 int decidingNum = UnityEngine.Random.Range(1, 31); // 1 ile 30 arasýnda rastgele bir sayý seçilir.
+
+                while (demonMultiplier > 0)
+                {
+                    if (demonCount >= 8)
+                    {
+                        demonMultiplier = 0;
+                    }
+                    if (demonMultiplier > 8)
+                    {
+                        demonMultiplier = 8;
+                    }
+
+                    SpawnPosRandomizer();
+                    yield return new WaitForSeconds(1.75f);
+                    Instantiate(demon, spawnPosition4, Quaternion.identity);
+                    if (demonMultiplier > 0)
+                    {
+                        demonMultiplier--;
+                    }
+                }
+
                 switch (decidingNum)
                 {
                     case 1:
@@ -228,37 +269,33 @@ public class GameController : MonoBehaviour
                         Instantiate(evilSpirit, spawnPosition4, Quaternion.identity);
                         break;          
                 }
-                int levelDifficultyOvertimeCD = PlayerController.Instance.continousLevelBorder / 1000;
-                yield return new WaitForSeconds(2.0f+ levelDifficultyOvertimeCD);
-                if(PlayerController.Instance.experience >= PlayerController.Instance.continousLevelBorder)
+                yield return new WaitForSeconds(1.2222f);
+                if(PlayerController.Instance.experience > PlayerController.Instance.continousLevelBorder)
                 {
                     yield break;
                 }
-
-                if(i == 30) // 30 düþmandan fazlasý olduðunda beklemeye girilecek
+                if (i >= 50) // 40 düþmandan fazlasý olduðunda beklemeye girilecek
                 {
+                    yield return new WaitForSeconds(16f);
                     break;
                 }
-            }
-            while (demonMultiplier > 0)
+                if(demonMultiplier < 2 && demonCount < 2)
+                {
+                    demonMultiplier++;
+                }
+            }//FOR END
+
+            if (PlayerController.Instance.level < 10)
             {
-                SpawnPosRandomizer();
-                yield return new WaitForSeconds(1.5f);
-                Instantiate(demon, spawnPosition4, Quaternion.identity);
-                demonMultiplier--;
-            }
-            if(PlayerController.Instance.level < 10)
-            {
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(5f);
             }
             else
             {
-                yield return new WaitForSeconds(20f);
+                yield return new WaitForSeconds(10f);
             }
-            demonMultiplier = 3;
-            SoundFXManager.instance.PlaySoundFXClip(enemyWaveLaunched, transform, 1f);
+
         }
-        yield return new WaitForSeconds(25f);
+        yield return new WaitForSeconds(10f);
         yield break;
     }
 
